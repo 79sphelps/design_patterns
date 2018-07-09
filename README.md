@@ -30,5 +30,5 @@ behavioral patterns
 - 7) [* * * * *] observer		    --> A way of notifying change to a number of classes
 - 8) [* * / / /] state			    --> Alter an object's behavior when its state changes
 - 9) [* * * / /] strategy		    --> Encapsulates an algorithm inside a class
-- 10)[* * / / /] template method	--> Defer the exact steps of an algorithm to a subclass
-- 11)[* / / / /] visitor		    --> Defines a new operation to a class without change
+- 10) [* * / / /] template method	--> Defer the exact steps of an algorithm to a subclass
+- 11) [* / / / /] visitor		    --> Defines a new operation to a class without change
