@@ -42,6 +42,7 @@ function ShippingAdapter(credentials) {
     shipping.login(credentials);
 
     return {
+        // Note: This 'request' public function has same signature as old interface function.
         request: function(zipStart, zipEnd, weight) {
             shipping.setStart(zipStart);
             shipping.setDestination(zipEnd);

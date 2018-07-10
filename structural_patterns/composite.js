@@ -17,6 +17,9 @@ All nodes in the Composite pattern share a common set of properties and methods 
 supports individual objects as well as object collections. This common interface greatly 
 facilitates the design and construction of recursive algorithms that iterate over each 
 object in the Composite collection.
+
+Example Usage: Company Directory (tree)
+
 */
 
 'use strict';
@@ -68,7 +71,7 @@ function run() {
     let leftright = new Node("leftright");
     let rightleft = new Node("rightleft");
     let rightright = new Node("rightright");
- 
+
     tree.add(left);
     tree.add(right);
     tree.remove(right);  // note: remove
@@ -79,9 +82,8 @@ function run() {
  
     right.add(rightleft);
     right.add(rightright);
- 
-    traverse(1, tree);
 
+    traverse(1, tree);
 }
 
 run();
