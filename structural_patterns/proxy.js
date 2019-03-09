@@ -5,23 +5,88 @@ Provide a surrogate or placeholder for another object to control access to it.
 Frequency of use (in JavaScript): medium high
 
 Summary
-The Proxy pattern provides a surrogate or placeholder object for another object and 
+The Proxy pattern provides a surrogate or placeholder object for another object and
 controls access to this other object.
 
-In object-oriented programming, objects do the work they advertise through their 
-interface (properties and methods). Clients of these objects expect this work to be 
-done quickly and efficiently. However, there are situations where an object is severely 
-constrained and cannot live up to its responsibility. Typically this occurs when there 
-is a dependency on a remote resource (resulting in network latency) or when an object 
+In object-oriented programming, objects do the work they advertise through their
+interface (properties and methods). Clients of these objects expect this work to be
+done quickly and efficiently. However, there are situations where an object is severely
+constrained and cannot live up to its responsibility. Typically this occurs when there
+is a dependency on a remote resource (resulting in network latency) or when an object
 takes a long time to load.
 
-In situations like these you apply the Proxy pattern and create a proxy object that 
-‘stands in’ for the original object. The Proxy forwards the request to a target object. 
-The interface of the Proxy object is the same as the original object and clients may 
+In situations like these you apply the Proxy pattern and create a proxy object that
+‘stands in’ for the original object. The Proxy forwards the request to a target object.
+The interface of the Proxy object is the same as the original object and clients may
 not even be aware they are dealing with a proxy rather than the real object.
 */
 
 "use strict";
+
+
+class GeoCoder {
+  getLatLng(address) {
+    if (address === "Amsterdam") {
+      return "52.3700° N, 4.8900° E";
+    } else if (address === "London") {
+      return "51.5171° N, 0.1062° W";
+    } else if (address === "Paris") {
+      return "48.8742° N, 2.3470° E";
+    } else if (address === "Berlin") {
+      return "52.5233° N, 13.4127° E";
+    } else {
+      return "";
+    }
+  }
+}
+
+class GeoProxy {
+  constructor() {
+    this.geocoder = new GeoCoder();
+    this.geocache = {};
+  }
+
+  getLatLng(address) {
+    if (!this.geocache[address]) {
+      this.geocache[address] = this.geocoder.getLatLng(address);
+    }
+    console.log(`${address}: ${this.geocache[address]}`);
+    return this.geocache[address];
+  }
+
+  getCount() {
+    let count = 0;
+    for (let code in this.geocache) {
+      count++;
+    }
+    return count;
+  }
+}
+
+let run = () => {
+  let geo = new GeoProxy();
+
+  // geolocation requests
+
+  geo.getLatLng("Paris");
+  geo.getLatLng("London");
+  geo.getLatLng("London");
+  geo.getLatLng("London");
+  geo.getLatLng("London");
+  geo.getLatLng("Amsterdam");
+  geo.getLatLng("Amsterdam");
+  geo.getLatLng("Amsterdam");
+  geo.getLatLng("Amsterdam");
+  geo.getLatLng("London");
+  geo.getLatLng("London");
+
+  console.log(`\nCache size: ${geo.getCount()}`);
+}
+
+run();
+
+/*
+ ES5 VERSION
 
 function GeoCoder() {
   this.getLatLng = function(address) {
@@ -61,29 +126,6 @@ function GeoProxy() {
   };
 }
 
-function run() {
-  let geo = new GeoProxy();
-
-  // geolocation requests
-
-  geo.getLatLng("Paris");
-  geo.getLatLng("London");
-  geo.getLatLng("London");
-  geo.getLatLng("London");
-  geo.getLatLng("London");
-  geo.getLatLng("Amsterdam");
-  geo.getLatLng("Amsterdam");
-  geo.getLatLng("Amsterdam");
-  geo.getLatLng("Amsterdam");
-  geo.getLatLng("London");
-  geo.getLatLng("London");
-
-  console.log("\nCache size: " + geo.getCount());
-}
-
-run();
-
-/*
 //==================================================
 // Simplified
 
