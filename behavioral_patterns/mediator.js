@@ -49,7 +49,7 @@ let Chatroom = function() {
         },
  
         send: function(message, from, to) {
-            if (to) {                      // single message
+            if (to) {                // single message
                 to.receive(message, from);    
             } else {                       // broadcast message
                 for (key in participants) {   

@@ -78,3 +78,16 @@ function run() {
 }
 
 run();
+
+/* Using Timeouts
+function Red(light) {
+  this.light = light;
+
+  this.go = function() {
+    console.log('Red for 10 seconds');
+    (setTimeout(function() {
+      this.light.change(new Green(light));
+  }.bind(this), 3000));
+  };
+}
+*/

@@ -48,3 +48,32 @@ function run() {
 }
 
 run();
+
+/* ES6
+class Singleton {
+  
+  constructor() {
+    let instance;
+  }
+
+  createInstance() {
+    let obj = new Object('');
+    return obj;
+  }
+
+  get instance() {
+    if (!instance) {
+      instance = this.createInstance();
+    }
+    return instance;
+  }
+}
+
+function run() {
+  let i1 = Singleton.instance;
+  let i2 = Singleton.instance;
+  console.log((i1 === i2));
+}
+
+run();
+*/

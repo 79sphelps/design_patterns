@@ -34,7 +34,25 @@ let datastore = {
         return true;
     }
 };
- 
+
+// Note: This is very much like the polyfill for Object.create(..)
+// See page 408 of You Don't Know JS
+/*
+if (!Object.create) {
+    Object.create = function(o) {
+        function F(){}
+        F.prototype = o;
+        return new F();
+    }
+}
+
+// Or...
+function createAndLinkObject(o) {
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+*/
 function inherit(proto) {
     let F = function() { };
     F.prototype = proto;
